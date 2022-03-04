@@ -11,15 +11,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-ARG STARBURST_VERSION=355-e
+ARG STARBURST_VERSION=371-e
 
 FROM starburstdata/starburst-enterprise:${STARBURST_VERSION}
 
-ARG CONNECTOR_VERSION=1.0.0
+ARG CONNECTOR_VERSION=3.1.0
 
 USER root:root
 RUN \
-    yum -y -q install unzip ca-certificates wget uuid-runtime gettext && \
+    microdnf -y install unzip ca-certificates wget libuuid gettext && \
     wget -q -O /tmp/aerospike.zip "https://www.aerospike.com/artifacts/enterprise/aerospike-trino/$CONNECTOR_VERSION/aerospike-trino-$CONNECTOR_VERSION.zip" && \
     unzip -q /tmp/aerospike.zip -d /tmp && \
     mv /tmp/trino-aerospike-$CONNECTOR_VERSION /usr/lib/starburst/plugin/aerospike && \
